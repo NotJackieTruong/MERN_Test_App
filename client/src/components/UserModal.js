@@ -60,14 +60,15 @@ const a11yProps = (index) => {
 
 function ModalTabs(props) {
   const classes = useStyles();
-  const {piority} = props
-  const iniPiority = parseInt(piority,10)
-  console.log("new value: ", iniPiority)
+  const piority = parseInt(props.piority, 10)
+
   const [value, setValue] = useState(piority)
+
+  React.useEffect(()=>{
+    setValue(piority)
+  }, [piority])
   const handleChange = (event, newValue) => {
     setValue(newValue)
-    event.target.value = newValue
-    console.log("the handleChange function worked: ", event.target.value)
   }
 
   // console.log("piority from user modal: ", piority)
@@ -77,7 +78,7 @@ function ModalTabs(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Tabs value={iniPiority} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Item One" {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
